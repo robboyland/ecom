@@ -7,6 +7,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class StoreTest extends TestCase
 {
+
+    use DatabaseTransactions;
+
     /** @test */
     public function shows_items_on_home_page()
     {

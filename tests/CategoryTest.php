@@ -7,6 +7,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CategoryTest extends TestCase
 {
+
+    use DatabaseTransactions;
+
     /** @test */
     public function shows_list_of_categories()
     {

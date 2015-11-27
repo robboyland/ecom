@@ -13,6 +13,12 @@
             <input type="text" name="name" id="name" class="form-control">
         </div>
 
+        <select name="category_id">
+            @foreach($categories as $cat)
+                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+            @endforeach
+        </select>
+
         <div class="form-group">
             <label for="description">description</label>
             <textarea name="description" id="description" class="form-control"></textarea>
