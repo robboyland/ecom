@@ -27,3 +27,9 @@ $factory->define(App\Item::class, function (Faker\Generator $faker) {
         'cost' => 1000,
     ];
 });
+
+$factory->define(App\Category::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+    ];
+});
