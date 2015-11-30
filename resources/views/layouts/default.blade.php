@@ -18,7 +18,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 
-    <link rel="stylesheet" href="/css/styles.css"  type="text/css">
+    <link rel="stylesheet" href="{!! asset('css/styles.css') !!}"  type="text/css">
 </head>
 <body>
     <div class="container">
