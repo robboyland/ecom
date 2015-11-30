@@ -10,19 +10,19 @@
                     <img class="img-responsive" src="http://placehold.it/700x400" alt="">
                 </a>
                 <h2>{{ $item->name }}</h2>
-                <div>&pound; {{ $item->price / 100 }}</div>
+                <div>&pound; {{ $item->cost / 100 }}</div>
             <div>
 
-                <form action="/cart/store" method="POST">
+                <form action="/cart" method="POST">
 
                     {{ csrf_field() }}
-                    <input name="_method" type="hidden" value="DELETE">
+
                     <input type="hidden" name="name" value="{{ $item->name }}">
                     <input type="hidden" name="id" value="{{ $item->id }}">
-                    <input type="hidden" name="price" value="{{ $item->price }}">
+                    <input type="hidden" name="price" value="{{ $item->cost }}">
 
                 <div class="form-group">
-                    <input type="submit" value="Add to cart " class="btn btn-primary btn-sm">
+                    <input type="submit" id="add-to-cart-{{ $item->id }}" value="Add to cart " class="btn btn-primary btn-sm">
                 </div>
 
                 </form>
