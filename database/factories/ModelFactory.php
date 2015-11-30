@@ -22,6 +22,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Item::class, function (Faker\Generator $faker) {
     return [
+        'category_id' => 1,
         'name' => $faker->word,
         'description' => $faker->paragraph,
         'cost' => 1000,
