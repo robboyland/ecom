@@ -25,7 +25,7 @@ $factory->define(App\Item::class, function (Faker\Generator $faker) {
         'category_id' => 1,
         'name' => $faker->word,
         'description' => $faker->paragraph,
-        'cost' => 1000,
+        'cost' => $faker->numberBetween($min = 1000, $max = 90000),
     ];
 });
 
