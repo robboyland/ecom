@@ -50,10 +50,8 @@
                             </div>
                             <div class="col-xs-2">
                                 <form action="cart/{{ $k }}" method="POST">
-
                                     {{ csrf_field() }}
-
-                                    <input name="_method" type="hidden" value="DELETE">
+                                    {{ method_field('DELETE') }}
                                     <button type="submit" id="delete-item-{{ $k }}">
                                     <span class="glyphicon glyphicon-trash">
 
