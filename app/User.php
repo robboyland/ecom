@@ -23,12 +23,25 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $table = 'users';
 
+    public function orders()
+    {
+        return $this->hasMany('Order');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name',
+                           'email',
+                           'password',
+                           'name_number',
+                           'street',
+                           'town_city',
+                           'county',
+                           'postcode'
+                          ];
 
     /**
      * The attributes excluded from the model's JSON form.
