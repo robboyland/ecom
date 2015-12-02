@@ -19,6 +19,7 @@
 
 
     <link rel="stylesheet" href="{!! asset('css/styles.css') !!}"  type="text/css">
+    <script src="{{ asset('/js/javascript.js') }}"></script>
 </head>
 <body>
     <div class="container">
