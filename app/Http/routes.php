@@ -1,5 +1,10 @@
 <?php
 
+Route::get('checkout/customer', 'CheckoutController@details');
+Route::post('checkout/register', 'CheckoutController@register');
+Route::get('checkout/payment', 'CheckoutController@payment');
+Route::post('checkout/charge', 'CheckoutController@charge');
+Route::get('order/confirmation', 'CheckoutController@confirmation');
 
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
