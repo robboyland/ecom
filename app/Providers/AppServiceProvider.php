@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('Ecom\Billing\BillingInterface',
+                         'Ecom\Billing\StripeBilling');
     }
 }
