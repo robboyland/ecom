@@ -7,6 +7,12 @@
     <h3>Account Email: {{ Auth::user()->email }}</h3>
     <h3>Order Total: £{{ $cartTotal / 100}}</h3>
 
+    @if (session('alert'))
+        <div class="alert alert-danger">
+            {{ session('alert') }}
+        </div>
+    @endif
+
     <form action="/checkout/charge" method="post" id="payment-form">
 
         {{ csrf_field() }}

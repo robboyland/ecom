@@ -46,15 +46,47 @@ class CheckoutController extends Controller
 
     public function charge(Request $request)
     {
-        $this->orderProcessor->charge($request->user(), $request->input('stripeToken'));
+        try {
+            $this->orderProcessor->charge($request->user(), $request->input('stripeToken'));
 
-        // Fire event here or order processor
-        // Event::fire('purchase.made');
-        // email customer
-        // email admin
-        // create receipt
+            // Fire event here or order processor
+            // Event::fire('purchase.made');
+            // email customer
+            // email admin
+            // create receipt
 
-        return view('checkout.confirmation');
+            return view('checkout.confirmation');
+        }
+
+        catch(\Stripe\Error\Card $e)
+        {
+            $body = $e->getJsonBody();
+            $error  = $body['error'];
+
+            return redirect('checkout/payment')->with('alert', $error['message']);
+        }
+
+        # TODO:
+        // other errors
+        # log them
+        # email notification
+        # text message - for critical
+
+        // } catch (\Stripe\Error\RateLimit $e) {
+        //   // Too many requests made to the API too quickly
+        // } catch (\Stripe\Error\InvalidRequest $e) {
+        //   // Invalid parameters were supplied to Stripe's API
+        // } catch (\Stripe\Error\Authentication $e) {
+        //   // Authentication with Stripe's API failed
+        //   // (maybe you changed API keys recently)
+        // } catch (\Stripe\Error\ApiConnection $e) {
+        //   // Network communication with Stripe failed
+        // } catch (\Stripe\Error\Base $e) {
+        //   // Display a very generic error to the user, and maybe send
+        //   // yourself an email
+        // } catch (Exception $e) {
+        //   // Something else happened, completely unrelated to Stripe
+        // }
     }
 
 }
