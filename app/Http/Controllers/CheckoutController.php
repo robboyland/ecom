@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Ecom\Cart\Cart;
-use Ecom\Service\OrderProcessor;
-
 use App\User;
+use Carbon\Carbon;
+use Ecom\Cart\Cart;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Ecom\Service\OrderProcessor;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,7 +41,11 @@ class CheckoutController extends Controller
     {
         $cartTotal = $this->cart->totalCost();
 
-        return view('checkout.card-details', compact('cartTotal'));
+        $months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+
+        $years = range(Carbon::now()->format('Y'), Carbon::now()->addYear(10)->format('Y'));
+
+        return view('checkout.card-details', compact('cartTotal', 'years', 'months'));
     }
 
     public function charge(Request $request)

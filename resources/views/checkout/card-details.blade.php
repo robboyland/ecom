@@ -36,10 +36,20 @@
         <div class="form-group">
           <label>
             <span>Expiration (MM/YYYY)</span>
-            <input type="text" size="2" data-stripe="exp-month"/>
+            <select data-stripe="exp-month">
+            @foreach ($months as $month)
+                <option value="{{ $month }}">{{ $month }}</option>
+            @endforeach
+            </select>
           </label>
           <span> / </span>
-          <input type="text" size="4" data-stripe="exp-year"/>
+            <label>
+            <select data-stripe="exp-year">
+            @foreach ($years as $year)
+                <option value="{{ $year }}">{{ $year }}</option>
+            @endforeach
+            </select>
+            </label>
         </div>
 
         <div class="form-group">
