@@ -52,4 +52,48 @@ class UserTest extends TestCase
              ->visit('auth/login')
              ->seePageIs('/');
     }
+
+    /** @test */
+    public function admin_is_redirected_to_cms_page_on_login()
+    {
+        $user = factory(User::class)->create(['admin' => '1']);
+
+        $this->visit('auth/login')
+             ->type($user->email,'email')
+             ->type('password','password')
+             ->press('Login')
+             ->seePageIs('/cms');
+    }
+
+    /** @test */
+    public function regular_users_redirected_to_dashboard_on_login()
+    {
+        $user = factory(User::class)->create();
+
+        $this->visit('auth/login')
+             ->type($user->email,'email')
+             ->type('password','password')
+             ->press('Login')
+             ->seePageIs('/dashboard');
+    }
+
+    /** @test */
+    public function regular_users_cannot_view_cms_section()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+             ->visit('/cms')
+             ->seePageIs('/dashboard');
+    }
+
+    /** @test */
+    public function admin_can_view_cms_section()
+    {
+        $user = factory(User::class)->create(['admin' => '1']);
+
+        $this->actingAs($user)
+             ->visit('/cms')
+             ->see('cms');
+    }
 }
