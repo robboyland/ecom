@@ -1,5 +1,7 @@
 <?php
 
+Route::get('cms', 'CmsController@index');
+
 Route::get('checkout/customer', 'CheckoutController@details');
 Route::post('checkout/register', 'CheckoutController@register');
 Route::get('checkout/payment', 'CheckoutController@payment');
