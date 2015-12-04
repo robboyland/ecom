@@ -42,4 +42,14 @@ class UserTest extends TestCase
              ->press('Login')
              ->seePageIs('dashboard');
     }
+
+    /** @test */
+    public function an_authenticated_user_should_be_redirected_from_login_to_the_home_page()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+             ->visit('auth/login')
+             ->seePageIs('/');
+    }
 }
