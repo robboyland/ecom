@@ -64,4 +64,13 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    protected function authenticated( $user)
+    {
+        if($user->admin == '0') {
+            return redirect('/dashboard');
+        }
+
+        return redirect('/cms');
+    }
 }
