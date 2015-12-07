@@ -7,6 +7,6 @@
     <h1>Categories</h1>
 
     @foreach ($categories as $category)
-        <h2>{{ $category->name }}</h2>
+        <div><a href="categories/{{ $category->id }}/edit">{{ $category->name }}</a></div>
     @endforeach
 @stop
