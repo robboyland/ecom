@@ -35,3 +35,22 @@ $factory->define(App\Category::class, function (Faker\Generator $faker) {
         'name' => $faker->word,
     ];
 });
+
+$factory->define(App\Order::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => 1,
+        'total' => $faker->numberBetween($min = 1000, $max = 90000),
+        'paid' => 'paid',
+        'charge_id' => 'ch_17DdfqJXm5fgVsifgbK9TprB',
+    ];
+});
+
+$factory->define(App\OrderItem::class, function (Faker\Generator $faker) {
+    return [
+        'product_id' => 2,
+        'name' => $faker->word,
+        'description' => $faker->sentence,
+        'price' => $faker->numberBetween($min = 1000, $max = 90000),
+        'quantity' => 1,
+    ];
+});

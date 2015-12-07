@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Order;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
@@ -20,9 +20,14 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        return 'dashboard';
+        $orders = Order::where('user_id', '=', $request->user()->id)
+                ->orderBy('created_at')
+                ->with('orderItems')
+                ->get();
+
+        return view('users.dashboard', compact('orders'));
     }
 
 }
