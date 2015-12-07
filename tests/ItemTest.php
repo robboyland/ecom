@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use App\Category;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -11,12 +12,15 @@ class ItemTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function can_add_an_item()
+    public function an_admin_can_add_an_item()
     {
+        $user = factory(User::class)->create(['admin' => '1']);
+
         $categoryOne = factory(Category::class)->create();
         $categoryTwo = factory(Category::class)->create();
 
-        $this->visit('items/create')
+        $this->actingAs($user)
+             ->visit('items/create')
              ->type('name', 'name')
              ->select($categoryTwo->id, 'category_id')
              ->type('description', 'description')

@@ -10,6 +10,10 @@ use App\Http\Controllers\Controller;
 
 class ItemsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin', ['except' => 'show']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -60,7 +64,9 @@ class ItemsController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = Item::findOrFail($id);
+
+        return view('store.show', compact('item'));
     }
 
     /**
