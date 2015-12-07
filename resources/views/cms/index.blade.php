@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.cms')
 
 @section('content')
     <p>cms</p>
