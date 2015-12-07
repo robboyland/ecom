@@ -34,7 +34,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user()->admin != 1) {
+        if (! $this->auth->check() || $request->user()->admin != 1) {
             return redirect('/dashboard');
         }
 
