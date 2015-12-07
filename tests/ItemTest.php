@@ -58,4 +58,18 @@ class ItemTest extends TestCase
                              )
              ->seePageIs('items');
     }
+
+    /** @test */
+    public function an_admin_can_delete_an_item()
+    {
+        $user = factory(User::class)->create(['admin' => '1']);
+
+        $item = factory(Item::class)->create();
+
+        $this->actingAs($user)
+             ->visit('items')
+             ->press('delete-item-' . $item->id)
+             ->notseeInDatabase('items', ['id' => $item->id])
+             ->seePageIs('items');
+    }
 }
