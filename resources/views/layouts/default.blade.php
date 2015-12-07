@@ -53,7 +53,7 @@
             <li><a href="/auth/register">Register</a></li>
             <li><a href="/auth/login">Login</a></li>
         @else
-            <li><a href="auth/logout">Logout</a></li>
+            <li><a href="/auth/logout">Logout</a></li>
         @endif
       </ul>
     </div><!-- /.navbar-collapse -->
