@@ -18,6 +18,7 @@ class EloquentOrderRepository implements OrderInterface
             $orderItem = new OrderItem;
             $orderItem->order_id = $order->id;
             $orderItem->product_id = $id;
+            $orderItem->name = $item['name'];
             $orderItem->description = 'description';
             $orderItem->price = $item['price'];
             $orderItem->quantity = $item['qty'];
