@@ -51,4 +51,21 @@ class OrderTest extends TestCase
              ->dontsee($orderItem->name)
              ->dontsee($orderItem->description);
     }
+
+    /** @test */
+    public function an_admin_can_view_all_orders()
+    {
+        $user = factory(User::class)->create(['admin' => 1]);
+
+        $order = factory(Order::class)->create(['user_id' => $user->id]);
+        $orderTwo = factory(Order::class)->create(['user_id' => 9]);
+
+        $orderItem = factory(OrderItem::class)->create(['order_id' => $order->id]);
+        $orderItemTwo = factory(OrderItem::class)->create(['order_id' => $orderTwo->id]);
+
+        $this->actingAs($user)
+             ->visit('/orders')
+             ->see($order->charge_id)
+             ->see($orderTwo->charge_id);
+    }
 }

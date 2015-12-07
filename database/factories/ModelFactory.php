@@ -41,7 +41,7 @@ $factory->define(App\Order::class, function (Faker\Generator $faker) {
         'user_id' => 1,
         'total' => $faker->numberBetween($min = 1000, $max = 90000),
         'paid' => 'paid',
-        'charge_id' => 'ch_17DdfqJXm5fgVsifgbK9TprB',
+        'charge_id' => 'ch_' . $faker->shuffle('17DdfqJXm5fgVsifgbK9TprB'),
     ];
 });
 
