@@ -7,6 +7,6 @@
     <h1>Items</h1>
 
     @foreach ($items as $item)
-        <div>{{ $item->name }}</div>
+        <div><a href="items/{{$item->id}}/edit">{{ $item->name }}</a></div>
     @endforeach
 @stop
