@@ -7,6 +7,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CartTest extends TestCase
 {
+
+    use DatabaseTransactions;
+
     /** @test */
     public function can_add_item_to_cart()
     {
