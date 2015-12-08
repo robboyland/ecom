@@ -48,7 +48,7 @@ $factory->define(App\Order::class, function (Faker\Generator $faker) {
 $factory->define(App\OrderItem::class, function (Faker\Generator $faker) {
     return [
         'product_id' => 2,
-        'name' => $faker->word,
+        'name' => $faker->sentence(3),
         'description' => $faker->sentence,
         'price' => $faker->numberBetween($min = 1000, $max = 90000),
         'quantity' => 1,
