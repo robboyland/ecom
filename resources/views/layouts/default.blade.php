@@ -56,7 +56,7 @@
             @if (Auth::user()->admin)
                 <li><a href="/cms">cms</a></li>
             @else
-                <li><a href="/dashboard">dashboard</a></li>li>
+                <li><a href="/dashboard">dashboard</a></li>
             @endif
             <li><a href="/auth/logout">Logout</a></li>
         @endif
