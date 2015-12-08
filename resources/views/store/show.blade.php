@@ -9,11 +9,10 @@
         <p>{{ $item->description }}</p>
         <div>{{ $item->cost }}</div>
 
-        <form action="/cart/store" method="POST">
+        <form action="/cart" method="POST">
 
                 {{ csrf_field() }}
 
-                <input name="_method" type="hidden" value="DELETE">
                 <input type="hidden" name="name" value="{{ $item->name }}">
                 <input type="hidden" name="id" value="{{ $item->id }}">
                 <input type="hidden" name="price" value="{{ $item->cost }}">

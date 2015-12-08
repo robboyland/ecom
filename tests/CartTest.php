@@ -26,6 +26,21 @@ class CartTest extends TestCase
     }
 
     /** @test */
+    public function can_add_item_to_cart_from_individual_item_page()
+    {
+        $item = factory(Item::class)->create();
+
+        $displayCost = $item->cost / 100;
+
+        $this->visit('/'. $item->id)
+             ->see($item->name)
+             ->press('Add to cart')
+             ->seePageIs('cart')
+             ->see($item->name)
+             ->see($displayCost);
+    }
+
+    /** @test */
     public function cart_shows_correct_total()
     {
         $this->withSession(['cart' => [
