@@ -1,5 +1,8 @@
 <?php
 
+Route::get('users', 'UsersController@index');
+Route::get('users/{id}', 'UsersController@show');
+
 Route::get('orders', 'OrdersController@index');
 Route::get('orders/{id}', 'OrdersController@show');
 

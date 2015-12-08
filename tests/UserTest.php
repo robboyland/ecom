@@ -109,5 +109,29 @@ class UserTest extends TestCase
              ->see('dashboard');
     }
 
+    /** @test */
+    public function an_admin_can_view_a_list_of_all_users()
+    {
+        $user = factory(User::class)->create(['admin' => 1]);
+        $userTwo = factory(User::class)->create();
+        $userThree = factory(User::class)->create();
+
+        $this->actingAs($user)
+             ->visit('users')
+             ->see($userTwo->name)
+             ->see($userThree->name);
+    }
+
+        /** @test */
+    public function an_admin_can_view_a_specific_users_details()
+    {
+        $user = factory(User::class)->create(['admin' => 1]);
+        $userTwo = factory(User::class)->create();
+
+        $this->actingAs($user)
+             ->visit('users/' . $userTwo->id)
+             ->see($userTwo->name)
+             ->seePageIs('users/' . $userTwo->id);
+    }
 
 }
