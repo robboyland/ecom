@@ -92,4 +92,29 @@ class OrderTest extends TestCase
              ->see($user->postcode)
              ->seePageIs('orders/' . $order->id);
     }
+
+    public function a_user_cannot_view_another_users_order()
+    {
+        $user = factory(User::class)->create();
+        $userTwo = factory(User::class)->create();
+
+        $order = factory(Order::class)->create(['user_id' => $user->id]);
+
+        $this->actingAs($userTwo)
+             ->visit('orders/' . $order->id)
+             ->seePageIs('dashboard');
+    }
+
+    /** @test */
+    public function an_admin_can_view_a_users_order()
+    {
+        $user = factory(User::class)->create();
+        $userTwo = factory(User::class)->create(['admin' => 1]);
+
+        $order = factory(Order::class)->create(['user_id' => $user->id]);
+
+        $this->actingAs($userTwo)
+             ->visit('orders/' . $order->id)
+             ->seePageIs('orders/' . $order->id);
+    }
 }
