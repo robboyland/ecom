@@ -93,7 +93,21 @@ class UserTest extends TestCase
         $user = factory(User::class)->create(['admin' => '1']);
 
         $this->actingAs($user)
-             ->visit('/cms')
+             ->visit('/')
+             ->click('cms')
              ->see('cms');
     }
+
+    /** @test */
+    public function regular_users_can_view_dashboard()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+             ->visit('/')
+             ->click('dashboard')
+             ->see('dashboard');
+    }
+
+
 }

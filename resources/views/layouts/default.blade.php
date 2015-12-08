@@ -53,6 +53,11 @@
             <li><a href="/auth/register">Register</a></li>
             <li><a href="/auth/login">Login</a></li>
         @else
+            @if (Auth::user()->admin)
+                <li><a href="/cms">cms</a></li>
+            @else
+                <li><a href="/dashboard">dashboard</a></li>li>
+            @endif
             <li><a href="/auth/logout">Logout</a></li>
         @endif
       </ul>
