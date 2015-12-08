@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Order;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -19,5 +20,13 @@ class OrdersController extends Controller
         $orders = Order::all();
 
         return view('orders.index', compact('orders'));
+    }
+
+    public function show($id)
+    {
+        $order = Order::where('id', '=', $id)->with('OrderItems')->first();
+        $user = User::where('id', '=', $order->user_id)->first();
+
+        return view('orders.show', compact('order', 'user'));
     }
 }

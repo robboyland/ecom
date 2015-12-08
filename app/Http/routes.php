@@ -1,6 +1,7 @@
 <?php
 
 Route::get('orders', 'OrdersController@index');
+Route::get('orders/{id}', 'OrdersController@show');
 
 Route::get('cms', 'CmsController@index');
 

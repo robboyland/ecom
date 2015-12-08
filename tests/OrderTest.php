@@ -13,7 +13,7 @@ class OrderTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function user_can_view_orders_on_dashboard()
+    public function a_user_can_view_orders_on_dashboard()
     {
         $user = factory(User::class)->create();
 
@@ -32,7 +32,7 @@ class OrderTest extends TestCase
     }
 
     /** @test */
-    public function user_cannot_view_anothers_users_orders_on_dashboard()
+    public function a_user_cannot_view_another_users_orders_on_dashboard()
     {
         $user = factory(User::class)->create();
         $userTwo = factory(User::class)->create();
@@ -67,5 +67,29 @@ class OrderTest extends TestCase
              ->visit('/orders')
              ->see($order->charge_id)
              ->see($orderTwo->charge_id);
+    }
+
+    /** @test */
+    public function an_admin_can_view_an_individual_order()
+    {
+        $user = factory(User::class)->create(['admin' => 1]);
+
+        $order = factory(Order::class)->create(['user_id' => $user->id]);
+
+        $orderItem = factory(OrderItem::class)->create(['order_id' => $order->id]);
+
+        $this->actingAs($user)
+             ->visit('orders/' . $order->id)
+             ->see($order->id)
+             ->see($orderItem->name)
+             ->see($order->total / 100)
+             ->see($orderItem->price / 100)
+             ->see($user->name)
+             ->see($user->name_number)
+             ->see($user->street)
+             ->see($user->city)
+             ->see($user->county)
+             ->see($user->postcode)
+             ->seePageIs('orders/' . $order->id);
     }
 }
