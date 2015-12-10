@@ -14,6 +14,7 @@ class ItemsController extends Controller
     {
         $this->middleware('admin', ['except' => 'show']);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -46,6 +47,13 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'category_id' => 'required',
+            'name'        => 'required',
+            'description' => 'required',
+            'cost'        => 'required'
+        ]);
+
         Item::create([
             'category_id' => $request->input('category_id'),
             'name' => $request->input('name'),
@@ -92,6 +100,13 @@ class ItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'category_id' => 'required',
+            'name'        => 'required',
+            'description' => 'required',
+            'cost'        => 'required'
+        ]);
+
         $item = Item::find($id);
 
         $item->category_id = $request->input('category_id');

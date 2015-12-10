@@ -4,6 +4,8 @@
 
     <h1>Edit: {{ $item->name }}</h1>
 
+    @include('common.errors')
+
     <form action="/items/{{ $item->id }}" method="POST">
 
         {{ csrf_field() }}
@@ -11,10 +13,10 @@
 
         <div class="form-group">
             <label for="name">name</label>
-            <input type="text" name="name" id="name" value="{{ $item->name }}" class="form-control">
+            <input type="text" name="name" id="name" value="{{ $item->name }}" class="form-control" required>
         </div>
 
-        <select name="category_id">
+        <select name="category_id" required>
             @foreach($categories as $cat)
                 <option value="{{ $cat->id }}"
                 @if ($item->category_id == $cat->id) {{ 'selected' }} @endif >{{ $cat->name }}</option>
@@ -23,12 +25,12 @@
 
         <div class="form-group">
             <label for="description">description</label>
-            <textarea name="description" id="description" class="form-control">{{ $item->description }}</textarea>
+            <textarea name="description" id="description" class="form-control" required>{{ $item->description }}</textarea>
         </div>
 
         <div class="form-group">
             <label for="cost">cost</label>
-            <input type="text" name="cost" id="cost" value="{{ $item->cost }}" class="form-control">
+            <input type="text" name="cost" id="cost" value="{{ $item->cost }}" class="form-control" required>
         </div>
 
         <div class="form-group">
