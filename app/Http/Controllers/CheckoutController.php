@@ -59,7 +59,7 @@ class CheckoutController extends Controller
             // email admin
             // create receipt
 
-            return view('checkout.confirmation');
+            return redirect('dashboard')->with('flash_message', 'Order Completed!');
         }
 
         catch(\Stripe\Error\Card $e)

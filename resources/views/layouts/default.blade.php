@@ -71,7 +71,13 @@
         </div> -->
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-            @yield('content')
+                @if (session('flash_message'))
+                    <div class="alert alert-success">
+                        {{ session('flash_message') }}
+                    </div>
+                @endif
+
+                @yield('content')
             </div>
         </div>
     </div>
