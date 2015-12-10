@@ -4,6 +4,8 @@
 
     <h1>Register</h1>
 
+    @include('common.errors')
+
     <form method="POST" action="/auth/register">
 
     {!! csrf_field() !!}

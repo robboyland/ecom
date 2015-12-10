@@ -4,6 +4,8 @@
 
     <h1>Login</h1>
 
+    @include('common.errors')
+
     <form method="POST" action="/auth/login">
 
     {!! csrf_field() !!}
