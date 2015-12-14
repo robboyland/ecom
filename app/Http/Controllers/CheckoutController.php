@@ -53,12 +53,6 @@ class CheckoutController extends Controller
         try {
             $this->orderProcessor->charge($request->user(), $request->input('stripeToken'));
 
-            // Fire event here or order processor
-            // Event::fire('purchase.made');
-            // email customer
-            // email admin
-            // create receipt
-
             return redirect('dashboard')->with('flash_message', 'Order Completed!');
         }
 

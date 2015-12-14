@@ -2,24 +2,27 @@
 
 namespace Ecom\Service;
 
-use Ecom\Repository\Order\OrderInterface;
 use App\Order;
+use Ecom\Cart\Cart;
 use Illuminate\Session\Store;
 use Ecom\Billing\BillingInterface;
-use Ecom\Cart\Cart;
+use Illuminate\Contracts\Mail\Mailer;
+use Ecom\Repository\Order\OrderInterface;
 
 class OrderProcessor
 {
     public function __construct(OrderInterface $order,
                                 Store $store,
                                 BillingInterface $billing,
-                                Cart $cart
+                                Cart $cart,
+                                Mailer $mailer
                                 )
     {
         $this->order    = $order;
         $this->session  = $store;
         $this->billing  = $billing;
         $this->cart     = $cart;
+        $this->mailer   = $mailer;
     }
 
     public function charge($user, $stripeToken)
@@ -36,6 +39,13 @@ class OrderProcessor
             $this->paid($order->id, $charge->id);
 
             $this->cart->clear();
+
+            $this->mailer->send('emails.orderconfirmation', ['user' => $user, 'order' => $order],
+                       function($m) use ($user, $order) {
+                            $m->from('orderconfirmation@app.com', 'Your order');
+
+                            $m->to($user->email, $user->name)->subject('Order Confirmation ref: ' . $order->id);
+            });
         }
     }
 
