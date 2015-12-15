@@ -124,9 +124,22 @@ class ItemsController extends Controller
         $item->description = $request->input('description');
         $item->cost = $request->input('cost');
 
+        if ($request->hasFile('image')) {
+
+            $extension = $request->file('image')->getClientOriginalExtension();
+
+            $item->image_type = $extension;
+
+            $storage = Storage::disk('s3')->put(
+                '/items/' . $item->id .  '.' . $extension,
+                file_get_contents( $request->file('image')->getRealPath() ),
+                'public'
+            );
+        }
+
         $item->save();
 
-        return redirect('items');
+        return redirect('items')->with('flash_message', 'Item details updated');
     }
 
     /**
