@@ -24,7 +24,8 @@
         "psr-4": {
             "App\\": "app/",
             "Ecom\\": "ecom/"
-        }
+        },
+        "files": ["app/Http/helpers.php"]
     },
     "autoload-dev": {
         "classmap": [
