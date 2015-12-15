@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => env('MAIL_PASSWORD_RESET_FROM_ADDRESS'), 'name' => null],
 
     /*
     |--------------------------------------------------------------------------
