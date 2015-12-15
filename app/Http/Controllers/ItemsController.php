@@ -7,6 +7,7 @@ use App\Category;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ItemsController extends Controller
 {
@@ -54,14 +55,23 @@ class ItemsController extends Controller
             'cost'        => 'required'
         ]);
 
-        Item::create([
+        $extension = $request->file('image')->getClientOriginalExtension();
+
+        $item = Item::create([
             'category_id' => $request->input('category_id'),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'cost' => $request->input('cost')
+            'cost' => $request->input('cost'),
+            'image_type' => $extension
         ]);
 
-        return redirect('items');
+        $storage = Storage::disk('s3')->put(
+            '/items/' . $item->id .  '.' . $extension,
+            file_get_contents( $request->file('image')->getRealPath() ),
+            'public'
+        );
+
+        return redirect('items')->with('flash_message', 'New Item added: ' . $item->name);
     }
 
     /**

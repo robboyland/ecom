@@ -3,6 +3,7 @@
 use App\Item;
 use App\User;
 use App\Category;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -20,18 +21,31 @@ class ItemTest extends TestCase
         $categoryOne = factory(Category::class)->create();
         $categoryTwo = factory(Category::class)->create();
 
+        $test_image = env('TEST_IMAGE_PATH');
+        $mime_type_parts = explode("/", mime_content_type($test_image));
+        $mime_type = $mime_type_parts[1];
+
         $this->actingAs($user)
              ->visit('items/create')
              ->type('name', 'name')
              ->select($categoryTwo->id, 'category_id')
              ->type('description', 'description')
              ->type(100, 'cost')
+             ->attach(env('TEST_IMAGE_PATH'), 'image')
              ->press('Add New Item')
              ->seeInDatabase('items', ['name' => 'name',
                              'category_id' => $categoryTwo->id,
                              'description' => 'description',
                              'cost' => 100])
              ->seePageIs('items');
+
+             $item = \DB::table('items')->where('name', 'name')->first();
+
+             $exists = Storage::disk('s3')->has('items/' . $item->id . '.' . $mime_type);
+
+             $this->assertEquals(true, $exists);
+
+             Storage::disk('s3')->delete('items/' . $item->id . '.' . $mime_type);
     }
 
     /** @test */

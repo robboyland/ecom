@@ -6,7 +6,7 @@
 
     @include('common.errors')
 
-    <form action="/items" method="POST">
+    <form action="/items" method="POST" enctype="multipart/form-data">
 
         {{ csrf_field() }}
 
@@ -30,6 +30,10 @@
         <div class="form-group">
             <label for="cost">cost</label>
             <input type="text" name="cost" id="cost" value="{{ old('cost') }}" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <input type="file" name="image" id="image">
         </div>
 
         <div class="form-group">

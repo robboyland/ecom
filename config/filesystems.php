@@ -64,10 +64,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key'    => 'your-key',
-            'secret' => 'your-secret',
-            'region' => 'your-region',
-            'bucket' => 'your-bucket',
+            'key'    => env('AMAZON_S3_ACCESS_KEY'),
+            'secret' => env('AMAZON_S3_SECRET_KEY'),
+            'region' => env('AMAZON_S3_REGION'),
+            'bucket' => env('AMAZON_S3_BUCKET'),
         ],
 
         'rackspace' => [

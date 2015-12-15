@@ -7,7 +7,7 @@
             @foreach($row as $item)
             <div class="gallery-item col-md-4 portfolio-item">
                 <a href="/{{ $item->id }}">
-                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+                    <img class="img-responsive" src="{{ env('AWS_S3_IMAGE_PATH') }}{{ $item->id }}.{{ $item->image_type }}" alt="{{ $item->name }}">
                 </a>
                 <h2>{{ $item->name }}</h2>
                 <div>&pound; {{ $item->cost / 100 }}</div>

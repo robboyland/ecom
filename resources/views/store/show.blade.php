@@ -4,7 +4,7 @@
 
     <div class="col-md-10 col-md-offset-1">
 
-        <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+        <img class="img-responsive" src="{{ env('AWS_S3_IMAGE_PATH') }}{{ $item->id }}.{{ $item->image_type }}" alt="{{ $item->name }}">
         <h1>{{ $item->name }}</h1>
         <p>{{ $item->description }}</p>
         <div>{{ $item->cost }}</div>
