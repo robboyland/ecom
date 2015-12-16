@@ -1,5 +1,7 @@
 <?php
 
+Route::get('/search', 'ItemsController@search');
+
 Route::get('users', 'UsersController@index');
 Route::get('users/{id}', 'UsersController@show');
 

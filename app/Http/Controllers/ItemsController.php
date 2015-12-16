@@ -13,7 +13,7 @@ class ItemsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin', ['except' => 'show']);
+        $this->middleware('admin', ['except' => ['show', 'search']]);
     }
 
     /**
@@ -153,5 +153,18 @@ class ItemsController extends Controller
         Item::destroy($id);
 
         return redirect('items');
+    }
+
+    public function search(Request $request)
+    {
+        $term = $request->input('term');
+
+        if ($term) {
+            $items = Item::where('name', 'LIKE', "%$term%")->get();
+        } else {
+            $items = Item::all();
+        }
+
+        return view('store.index', compact('items'));
     }
 }

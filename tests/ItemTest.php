@@ -86,4 +86,19 @@ class ItemTest extends TestCase
              ->notseeInDatabase('items', ['id' => $item->id])
              ->seePageIs('items');
     }
+
+    /** @test */
+    public function a_user_can_search_for_items()
+    {
+        $item      = factory(Item::class)->create(['name' => 'lamp']);
+        $itemtwo   = factory(Item::class)->create(['name' => 'table']);
+        $itemthree = factory(Item::class)->create(['name' => 'door']);
+
+        $this->visit('/')
+             ->type('a', 'term')
+             ->press('search')
+             ->see('lamp')
+             ->see('table')
+             ->dontSee('door');
+    }
 }

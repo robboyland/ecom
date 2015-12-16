@@ -41,11 +41,12 @@
       <ul class="nav navbar-nav">
         <li><a href="/">Home</a></li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+      <form action="/search" method="GET" class="navbar-form navbar-left" role="search">
+        {{ csrf_field() }}
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" name="term" class="form-control" placeholder="Search">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" value="search" id="search" class="btn btn-default">Search</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/cart">Cart</a></li>
