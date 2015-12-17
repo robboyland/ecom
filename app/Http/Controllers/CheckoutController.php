@@ -54,37 +54,28 @@ class CheckoutController extends Controller
             $this->orderProcessor->charge($request->user(), $request->input('stripeToken'));
 
             return redirect('dashboard')->with('flash_message', 'Order Completed!');
-        }
 
-        catch(\Stripe\Error\Card $e)
-        {
+        } catch(\Stripe\Error\Card $e) {
             $body = $e->getJsonBody();
             $error  = $body['error'];
 
             return redirect('checkout/payment')->with('alert', $error['message']);
+
+        } catch (\Stripe\Error\RateLimit $e) {
+            return redirect('checkout/payment')->with('alert', 'It looks like our payment processor was busy. Please try again.');
+
+        } catch (\Stripe\Error\InvalidRequest $e) {
+            return redirect('checkout/payment')->with('alert', $e->getMessage());
+
+        } catch (\Stripe\Error\Authentication $e) {
+            return redirect('checkout/payment')->with('alert', $e->getMessage());
+
+        } catch (\Stripe\Error\ApiConnection $e) {
+            return redirect('checkout/payment')->with('alert', $e->getMessage());
+
+        } catch (\Stripe\Error\Base $e) {
+            return redirect('checkout/payment')->with('alert', $e->getMessage());
         }
-
-        # TODO:
-        // other errors
-        # log them
-        # email notification
-        # text message - for critical
-
-        // } catch (\Stripe\Error\RateLimit $e) {
-        //   // Too many requests made to the API too quickly
-        // } catch (\Stripe\Error\InvalidRequest $e) {
-        //   // Invalid parameters were supplied to Stripe's API
-        // } catch (\Stripe\Error\Authentication $e) {
-        //   // Authentication with Stripe's API failed
-        //   // (maybe you changed API keys recently)
-        // } catch (\Stripe\Error\ApiConnection $e) {
-        //   // Network communication with Stripe failed
-        // } catch (\Stripe\Error\Base $e) {
-        //   // Display a very generic error to the user, and maybe send
-        //   // yourself an email
-        // } catch (Exception $e) {
-        //   // Something else happened, completely unrelated to Stripe
-        // }
     }
 
 }
