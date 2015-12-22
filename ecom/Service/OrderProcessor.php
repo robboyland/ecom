@@ -40,7 +40,7 @@ class OrderProcessor
 
             $this->cart->clear();
 
-            $this->mailer->send('emails.orderconfirmation', ['user' => $user, 'order' => $order],
+            $this->mailer->queue('emails.orderconfirmation', ['user' => $user, 'order' => $order],
                        function($m) use ($user, $order) {
                             $m->from('orderconfirmation@app.com', 'Your order');
 
